@@ -1,92 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static AddressBookSystem.UC_3EditContacts;
 
 namespace AddressBookSystem
 {
     internal class UC_4DeleteContacts
     {
-        public class AddressBook
+        public static void Main()
         {
-            private List<Contact> contacts;
+            Console.WriteLine("Welcome to Address Book Program");
 
-            public AddressBook()
-            {
-                contacts = new List<Contact>();
-            }
+            AddressBook addressBook = new AddressBook();
 
-            public void AddContact(Contact contact)
-            {
-                contacts.Add(contact);
-                Console.WriteLine("Contact added successfully.");
-            }
+            // Create contacts
+            Contact contact1 = new Contact("John", "Doe", "123 Main St", "City", "State", "12345", "1234567890", "john@example.com");
+            Contact contact2 = new Contact("Jane", "Smith", "456 Elm St", "City", "State", "67890", "9876543210", "jane@example.com");
 
-            public void DisplayContacts()
-            {
-                Console.WriteLine("Contacts:");
-                foreach (var contact in contacts)
-                {
-                    Console.WriteLine(contact);
-                }
-            }
+            // Add contacts to address book
+            addressBook.AddContact(contact1);
+            addressBook.AddContact(contact2);
 
-            public void EditContact(string firstName, string lastName)
-            {
-                Contact contact = FindContactByName(firstName, lastName);
+            // Display the contacts
+            addressBook.DisplayContacts();
 
-                if (contact != null)
-                {
-                    Console.WriteLine("Enter the new details for the contact:");
-                    Console.Write("Address: ");
-                    string address = Console.ReadLine();
-                    Console.Write("City: ");
-                    string city = Console.ReadLine();
-                    Console.Write("State: ");
-                    string state = Console.ReadLine();
-                    Console.Write("Zip: ");
-                    string zip = Console.ReadLine();
-                    Console.Write("Phone Number: ");
-                    string phoneNumber = Console.ReadLine();
-                    Console.Write("Email: ");
-                    string email = Console.ReadLine();
+            // Edit an existing contact
+            Console.WriteLine("Enter the name of the contact to edit:");
+            Console.Write("First Name: ");
+            string editFirstName = Console.ReadLine();
+            Console.Write("Last Name: ");
+            string editLastName = Console.ReadLine();
 
-                    // Update the contact details
-                    contact.Address = address;
-                    contact.City = city;
-                    contact.State = state;
-                    contact.Zip = zip;
-                    contact.PhoneNumber = phoneNumber;
-                    contact.Email = email;
+            addressBook.EditContact(editFirstName, editLastName);
 
-                    Console.WriteLine("Contact updated successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Contact not found.");
-                }
-            }
+            // Display the updated contacts
+            addressBook.DisplayContacts();
 
-            public void DeleteContact(string firstName, string lastName)
-            {
-                Contact contact = FindContactByName(firstName, lastName);
+            // Delete a contact
+            Console.WriteLine("Enter the name of the contact to delete:");
+            Console.Write("First Name: ");
+            string deleteFirstName = Console.ReadLine();
+            Console.Write("Last Name: ");
+            string deleteLastName = Console.ReadLine();
 
-                if (contact != null)
-                {
-                    contacts.Remove(contact);
-                    Console.WriteLine("Contact deleted successfully.");
-                }
-                else
-                {
-                    Console.WriteLine("Contact not found.");
-                }
-            }
+            addressBook.DeleteContact(deleteFirstName, deleteLastName);
 
-            private Contact FindContactByName(string firstName, string lastName)
-            {
-                return contacts.Find(c => c.FirstName.Equals(firstName, StringComparison.OrdinalIgnoreCase) && c.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
-            }
+            // Display the updated contacts
+            addressBook.DisplayContacts();
+
+            // TODO: Implement the rest of the Address Book functionality
         }
     }
 }
